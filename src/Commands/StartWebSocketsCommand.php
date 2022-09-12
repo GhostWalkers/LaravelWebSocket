@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Support\DripEmailer;
 use Ghostwalker\LaravelWebsocket;
 use Illuminate\Console\Command;
+use ReflectionException;
 use Symfony\Component\Console\Attribute\AsCommand;
 
 class StartWebSocketsCommand extends Command
@@ -18,6 +19,11 @@ class StartWebSocketsCommand extends Command
     protected $signature = 'websocket';
 
     /**
+     * @var LaravelWebsocket
+     */
+    protected LaravelWebsocket $laravelWebSocket;
+
+    /**
      * The console command description.
      *
      * @var string
@@ -27,11 +33,15 @@ class StartWebSocketsCommand extends Command
     public function __construct()
     {
         parent::__construct();
+        $this->laravelWebSocket = new LaravelWebsocket();
     }
 
+    /**
+     * @throws ReflectionException
+     */
     public function handle()
     {
-        LaravelWebsocket::bootStrap();
+        $this->laravelWebSocket->bootStrap();
         LaravelWebsocket::$app->run();
     }
 }

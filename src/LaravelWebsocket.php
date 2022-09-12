@@ -2,49 +2,82 @@
 
 namespace Ghostwalker;
 
-use Illuminate\Contracts\Container\Container;
-use Illuminate\Contracts\Validation\ImplicitRule;
-use Illuminate\Support\Facades\Artisan;
+use AllowDynamicProperties;
+use Ghostwalker\Service\UtilService;
+use JetBrains\PhpStorm\Pure;
 use Ratchet\App;
 use Nette\Loaders\RobotLoader;
+use Illuminate\Container\Container;
+use ReflectionException;
 
-class LaravelWebsocket
+#[AllowDynamicProperties] class LaravelWebsocket
 {
+    /**
+     * @var App
+     */
     public static App $app;
 
+    /**
+     * @var RobotLoader
+     */
     public static RobotLoader $robotLoader;
 
-    public static function bootApp(): void
+    /**
+     * @var string
+     */
+    public string $httpHost = 'localhost';
+
+    /**
+     * @var int
+     */
+    public int $port = 8080;
+
+    /**
+     * @return void
+     */
+    public function bootApp(): void
     {
-        self::$app = new App('localhost', 8080);
+        self::$app = new App(env('sockets_httphost') ?? $this->httpHost, env('sockets_port') ?? $this->port);
     }
 
-
-    public static function bootStrap()
+    /**
+     * __construct
+     */
+    #[Pure] public function __construct()
     {
-        self::bootApp();
-        self::bootLoader();
-        self::createAllClass();
+        $this->utilService = new UtilService();
     }
 
-//    public static function createOrGet(mixed $propety)
-//    {
-//        self::$propety ?? self::$propety = new self::$propety;
-//    }
+    /**
+     * @return void
+     * @throws ReflectionException
+     */
+    public function bootStrap()
+    {
+        $this->bootApp();
+        $this->bootLoader();
+        $this->touchMethod();
+    }
 
-    public static function bootLoader()
+    /**
+     * @return void
+     */
+    protected function bootLoader()
     {
         $loader = self::$robotLoader = new RobotLoader();
-        $loader->setTempDirectory(__DIR__ . '/temp');
+        $loader->setTempDirectory(__DIR__ . '/Temp');
         $loader->addDirectory(env('SOCKETS_DIR'));
-        $loader->register();
+        $loader->rebuild();
     }
 
-    public static function createAllClass()
+    /**
+     * @return void
+     * @throws ReflectionException
+     */
+    protected function touchMethod()
     {
         foreach (self::$robotLoader->getIndexedClasses() as $indexedClass => $path) {
-//            $reflectionIndexClass = new \ReflectionClass($indexedClass);
-//            if ($reflectionIndexClass->getMethod('addRout'))
+            $this->utilService->checkOnMethod('addRout', $indexedClass);
             $indexedClass::addRout();
         }
     }
