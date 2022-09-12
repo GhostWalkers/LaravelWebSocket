@@ -1,8 +1,9 @@
 # Very short description of the package
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/ghostwalker/laravel websocket.svg?style=flat-square)](https://packagist.org/packages/ghostwalker/laravel websocket)
-[![Total Downloads](https://img.shields.io/packagist/dt/ghostwalker/laravel websocket.svg?style=flat-square)](https://packagist.org/packages/ghostwalker/laravel websocket)
-![GitHub Actions](https://github.com/ghostwalker/laravel websocket/actions/workflows/main.yml/badge.svg)
+<img src="https://img.shields.io/packagist/v/ghostwalker/laravelwebsocket.svg?style=flat-square">
+
+<img src="https://img.shields.io/github/downloads/GhostWalkers/LaravelWebSocket/total?style=flat-square">
+
 
 This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
 
