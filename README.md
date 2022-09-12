@@ -1,11 +1,3 @@
-# Very short description of the package
-
-<img src="https://img.shields.io/packagist/v/ghostwalker/laravelwebsocket.svg?style=flat-square">
-
-<img src="https://img.shields.io/github/downloads/GhostWalkers/LaravelWebSocket/total?style=flat-square">
-
-
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
 
 ## Installation
 
