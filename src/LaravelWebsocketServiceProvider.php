@@ -15,7 +15,7 @@ class LaravelWebsocketServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/config.php' => config_path('laravel websocket.php'),
+                __DIR__ . '/Config/config.php' => config_path('laravelwebsocket.php'),
             ], 'config');
 
             $this->commands([
@@ -26,7 +26,7 @@ class LaravelWebsocketServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'laravel websocket');
+        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'laravelwebsocket');
 
         $this->app->singleton('laravel websocket', function () {
             return new LaravelWebsocket;

@@ -16,7 +16,7 @@ class StartWebSocketsCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'websocket';
+    protected $signature;
 
     /**
      * @var LaravelWebsocket
@@ -32,6 +32,8 @@ class StartWebSocketsCommand extends Command
 
     public function __construct()
     {
+        $this->signature = config('laravelwebsocket.artisan_command_start') ?? 'websocket:start';
+
         parent::__construct();
         $this->laravelWebSocket = new LaravelWebsocket();
     }

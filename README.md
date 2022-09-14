@@ -14,20 +14,32 @@ register service-provider
 add line to /config/app.php in array "providers"
 
 ```php
-    Ghostwalker\LaravelWebsocketServiceProvider::class
+Ghostwalker\LaravelWebsocketServiceProvider::class
 ```
 
 
 .
 
-then write full path to you socket folder in .env
-
-example: 
+then publish config
 
 ```dotenv
-    SOCKETS_DIR=/var/www/example/sockets
-    SOCKETS_HTTPHOST="localhost"
-    SOCKETS_PORT="8080"
+php artisan vendor:publish --provider="Ghostwalker\LaravelWebsocketServiceProvider" --tag="config"
+```
+.
+
+/config/laravelwebsocket.php
+
+example:
+
+```php
+<?php
+
+return [
+    'httphost' => 'localhost',
+    'port' => 8081,
+    'sockets_dir' => 'var/www/html/sockets',
+    'artisan_command_start' => 'websocket:start',
+];
 ```
 .
 

@@ -37,7 +37,7 @@ use ReflectionException;
      */
     public function bootApp(): void
     {
-        self::$app = new App(env('sockets_httphost') ?? $this->httpHost, env('sockets_port') ?? $this->port);
+        self::$app = new App(config('laravelwebsocket.httphost') ?? $this->httpHost, config('laravelwebsocket.port') ?? $this->port);
     }
 
     /**
@@ -66,7 +66,7 @@ use ReflectionException;
     {
         $loader = self::$robotLoader = new RobotLoader();
         $loader->setTempDirectory(__DIR__ . '/Temp');
-        $loader->addDirectory(env('SOCKETS_DIR'));
+        $loader->addDirectory(config('laravelwebsocket.sockets_dir'));
         $loader->rebuild();
     }
 
